@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Coin Price Ticker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="app-header-row">
+    <div class="brand">
+      <span class="brand-mark">FLOOR&nbsp;DISPLAY</span>
+      <h1>Live Coin Price Ticker</h1>
+    </div>
+    <div class="status-cluster">
+      <span class="status-pill" id="connPill" data-state="checking" role="status" aria-live="polite">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span id="connLabel">Checking connection…</span>
+      </span>
+      <span id="lastUpdated">Last updated: —</span>
+      <button class="btn" id="refreshBtn" type="button" aria-label="Refresh coin prices now">Refresh</button>
+    </div>
+  </div>
+</header>
+
+<div class="tape-wrap" role="region" aria-label="Scrolling market movers ticker tape (pauses on hover or focus)">
+  <div class="tape-track" id="tapeTrack">
+    <!-- populated by JS, duplicated once for seamless loop -->
+  </div>
+</div>
+
+<main>
+
+  <div class="toolbar">
+    <div class="field">
+      <label for="searchInput">Filter by name or symbol</label>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="e.g. bitcoin or eth"
+        maxlength="40"
+        aria-describedby="searchError"
+        autocomplete="off"
+        spellcheck="false"
+      >
+      <div class="field-error" id="searchError" role="alert"></div>
+    </div>
+    <div class="toolbar-meta" id="rowCountMeta"></div>
+  </div>
+
+  <div class="table-card">
+    <table id="coinTable">
+      <caption class="visually-hidden">Live cryptocurrency prices, sortable by column, updates automatically every 30 seconds</caption>
+      <thead>
+        <tr>
+          <th scope="col" style="width:34%">
+            <button type="button" data-sort="name" aria-label="Sort by coin name">Coin</button>
+          </th>
+          <th scope="col" style="width:20%">
+            <button type="button" data-sort="current_price" aria-label="Sort by current price">Price (USD)</button>
+          </th>
+          <th scope="col" style="width:18%">
+            <button type="button" data-sort="price_change_percentage_24h" aria-label="Sort by 24 hour change">24h Change</button>
+          </th>
+          <th scope="col" style="width:28%">
+            <button type="button" data-sort="market_cap" aria-label="Sort by market capitalization">Market Cap</button>
+          </th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <!-- states / rows injected here -->
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<footer class="app-footer">
+  Data source: CoinGecko public market API. Prices refresh automatically every 30 seconds. Built for floor-staff use — no login required.
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
